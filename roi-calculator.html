@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Ads & Meta Ads ROI Calculator — IDR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="roi-calculator.css">
+</head>
+<body>
+
+  <div class="calc-wrapper">
+    <div class="calc-container">
+
+      <div class="calc-header">
+        <h1>Digital Ads ROI Calculator</h1>
+        <p>Calculate your combined Google Ads + Meta Ads return on investment in Indonesian Rupiah</p>
+      </div>
+
+      <!-- Platform input cards -->
+      <div class="platform-grid">
+
+        <!-- Google Ads -->
+        <div class="platform-card google-card">
+          <div class="card-header">
+            <div class="platform-badge">
+              <span class="dot google-dot"></span>
+              <span>Google Ads</span>
+            </div>
+            <div class="roi-inline">
+              ROI&nbsp;<span class="roi-value" id="g-roi-hd">–</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="g-cpc">Avg. cost per click</label>
+              <span class="field-value" id="gv-cpc">Rp 5rb</span>
+            </div>
+            <input type="range" id="g-cpc" min="500" max="30000" step="500" value="5000">
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="g-bud">Monthly budget</label>
+              <span class="field-value" id="gv-bud">Rp 5 jt</span>
+            </div>
+            <input type="range" id="g-bud" min="1000000" max="50000000" step="100000" value="5000000">
+          </div>
+
+          <div class="field last">
+            <div class="field-header">
+              <label for="g-conv">Visitor → lead rate</label>
+              <span class="field-value" id="gv-conv">5,0%</span>
+            </div>
+            <input type="range" id="g-conv" min="0.5" max="30" step="0.5" value="5">
+          </div>
+        </div>
+
+        <!-- Meta Ads -->
+        <div class="platform-card meta-card">
+          <div class="card-header">
+            <div class="platform-badge">
+              <span class="dot meta-dot"></span>
+              <span>Meta Ads</span>
+            </div>
+            <div class="roi-inline">
+              ROI&nbsp;<span class="roi-value" id="m-roi-hd">–</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="m-cpc">Avg. cost per click</label>
+              <span class="field-value" id="mv-cpc">Rp 2,5rb</span>
+            </div>
+            <input type="range" id="m-cpc" min="250" max="20000" step="250" value="2500">
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="m-bud">Monthly budget</label>
+              <span class="field-value" id="mv-bud">Rp 5 jt</span>
+            </div>
+            <input type="range" id="m-bud" min="1000000" max="50000000" step="100000" value="5000000">
+          </div>
+
+          <div class="field last">
+            <div class="field-header">
+              <label for="m-conv">Click → lead rate</label>
+              <span class="field-value" id="mv-conv">3,0%</span>
+            </div>
+            <input type="range" id="m-conv" min="0.5" max="30" step="0.5" value="3">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Shared business inputs -->
+      <div class="shared-card">
+        <div class="shared-title">Shared business inputs — applies to both channels</div>
+        <div class="shared-grid">
+          <div class="field last">
+            <div class="field-header">
+              <label for="s-close">Lead → customer rate</label>
+              <span class="field-value" id="sv-close">25%</span>
+            </div>
+            <input type="range" id="s-close" min="1" max="100" step="1" value="25">
+          </div>
+          <div class="field last">
+            <div class="field-header">
+              <label for="s-ltv">Customer LTV</label>
+              <span class="field-value" id="sv-ltv">Rp 2 jt</span>
+            </div>
+            <input type="range" id="s-ltv" min="100000" max="50000000" step="100000" value="2000000">
+          </div>
+          <div class="field last">
+            <div class="field-header">
+              <label for="s-margin">Profit margin</label>
+              <span class="field-value" id="sv-margin">40%</span>
+            </div>
+            <input type="range" id="s-margin" min="5" max="95" step="1" value="40">
+          </div>
+        </div>
+      </div>
+
+      <!-- Results header: divider + download button -->
+      <div class="results-header-row">
+        <div class="section-divider">
+          <span>Combined results</span>
+        </div>
+        <button class="btn-download" id="btn-download-pdf">
+          <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span class="btn-label">Download PDF</span>
+        </button>
+      </div>
+
+      <!-- Combined summary row -->
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="summary-label">Total budget</div>
+          <div class="summary-value" id="c-bud">–</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Total revenue</div>
+          <div class="summary-value" id="c-rev">–</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Total profit</div>
+          <div class="summary-value" id="c-pro">–</div>
+        </div>
+        <div class="summary-card roi-highlight">
+          <div class="summary-label">Combined ROI</div>
+          <div class="summary-value roi-big" id="c-roi">–</div>
+        </div>
+      </div>
+
+      <!-- Per-platform breakdowns -->
+      <div class="breakdown-grid">
+
+        <div class="breakdown-card">
+          <div class="breakdown-header">
+            <span class="dot google-dot"></span>
+            <span>Google Ads breakdown</span>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-label">Visits</div>
+              <div class="metric-value" id="g-vis">–</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Leads</div>
+              <div class="metric-value" id="g-leads">–</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">CPL</div>
+              <div class="metric-value" id="g-cpl">–</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Sales</div>
+              <div class="metric-value" id="g-sales">–</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Revenue</div>
+              <div class="metric-value" id="g-rev">–</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Profit</div>
+              <div class="metric-value" id="g-pro">–</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="breakdown-card">
+          <div class="breakdown-header">
+            <span class="dot meta-dot"></span>
+            <span>Meta Ads breakdown</span>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-label">Clicks</div>
+              <div class="metric-value" id="m-vis">–</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Leads</div>
+              <div class="metric-value" id="m-leads">–</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">CPL</div>
+              <div class="metric-value" id="m-cpl">–</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Sales</div>
+              <div class="metric-value" id="m-sales">–</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Revenue</div>
+              <div class="metric-value" id="m-rev">–</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Profit</div>
+              <div class="metric-value" id="m-pro">–</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Assessment block -->
+      <div class="assessment" id="abox">
+        <div class="assessment-title" id="atitle"></div>
+        <div class="assessment-body" id="abody"></div>
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-card">
+        <div class="chart-legend">
+          <span class="legend-item">
+            <span class="legend-swatch" style="background:#378ADD"></span>Google Ads
+          </span>
+          <span class="legend-item">
+            <span class="legend-swatch" style="background:#7F77DD"></span>Meta Ads
+          </span>
+          <span class="legend-item">
+            <span class="legend-swatch" style="background:#888780"></span>Combined
+          </span>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="roi-chart"
+            role="img"
+            aria-label="Grouped bar chart comparing Google Ads, Meta Ads, and combined budget, revenue, and profit in IDR">
+            Google Ads vs Meta Ads vs Combined: budget, revenue, and profit in IDR.
+          </canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="roi-calculator.js"></script>
+</body>
+</html>
